@@ -1,0 +1,50 @@
+{% extends 'app/layout.html' %}
+
+{% block title %}Add teacher{% endblock %}
+
+{% block content %}
+    <h2>Add teacher</h2>
+    <form action="add_teacher" method="POST">
+        {% csrf_token %}
+        <div class="row g-2 align-items-center mt-4">
+
+            <div class="col-auto">
+                <input type="text" class="form-control" name="first_new_name_teacher" placeholder="First name" required
+                       aria-label="first_new_name_teacher">
+            </div>
+
+            <div class="col-auto">
+                <input type="text" class="form-control" name="second_new_name_teacher" placeholder="Second name"
+                       required
+                       aria-label="second_new_name_teacher">
+            </div>
+
+            <div class="col-auto">
+                <select required class="form-select" name="teacher_class" aria-label="Choose class">
+                    {% for itm in classes %}
+                        <option value="{{ itm.class_name }}">{{ itm.class_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-auto">
+                <select required class="form-select" name="teacher_lesson" aria-label="Choose class">
+                    {% for itm in lessons %}
+                        <option value="{{ itm.lesson_name }}">{{ itm.lesson_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-auto">
+                <button class="btn btn-primary" type="submit">Add</button>
+            </div>
+
+        </div>
+    </form>
+
+    <div class="mt-3">
+        <b>**If the teacher teaches several classes or several subjects, add him to each class or subject in turn.</b>
+    </div>
+
+
+{% endblock %}

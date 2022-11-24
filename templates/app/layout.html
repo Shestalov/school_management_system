@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static "app/css/layout.css" %}">
+</head>
+<body>
+
+<!-- Side navigation -->
+<div class="sidenav">
+    <a href="{% url 'app:home' %}">Home</a>
+
+    <a href="{% url 'app:add_class' %}">Add class</a>
+    <a href="{% url 'app:delete_class' %}">Del class</a>
+
+    <a href="{% url 'app:filter_pupils' %}">Pupils</a>
+    <a href="{% url 'app:add_pupil' %}">Add pupil</a>
+    <a href="{% url 'app:delete_pupil' %}">Del pupil</a>
+
+    <a href="{% url 'app:filter_teachers' %}">Teachers</a>
+    <a href="{% url 'app:add_teacher' %}">Add teacher</a>
+    <a href="{% url 'app:delete_teacher' %}">Del teacher</a>
+
+    <a href="{% url 'app:classes_journals' %}">Journals</a>
+    <a href="{% url 'app:add_mark' %}">Add mark</a>
+
+    <a href="{% url 'app:timetable' %}">Timetable</a>
+    <a href="{% url 'app:add_timetable' %}">Add timetable</a>
+</div>
+
+<div class="container w-50 p-3">
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == "error" %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% else %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>
+
+<!-- Page content -->
+<div class="main">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

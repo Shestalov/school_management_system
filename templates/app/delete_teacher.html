@@ -1,0 +1,27 @@
+{% extends 'app/layout.html' %}
+
+{% block title %}Delete teacher{% endblock %}
+
+{% block content %}
+    <h2>Delete teacher</h2>
+    <form action="delete_teacher" method="post">
+        {% csrf_token %}
+
+        <div class="row g-2 align-items-center mt-4">
+
+            <div class="col-auto">
+                <select required class="form-select" name="teacher_id" aria-label="Choose class">
+                    {% for itm in teachers %}
+                        <option value="{{ itm.id }}">{{ itm.teachers_class.class_name }} {{ itm.second_name_teacher }} {{ itm.first_name_teacher }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-lg-2 col-sm-4">
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </div>
+
+        </div>
+
+    </form>
+{% endblock %}

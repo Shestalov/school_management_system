@@ -1,0 +1,52 @@
+{% extends 'app/layout.html' %}
+
+{% block title %}Add timetable{% endblock %}
+
+{% block content %}
+    <h2>Add timetable</h2>
+    <form action="add_timetable" method="POST">
+        {% csrf_token %}
+        <div class="row g-2 align-items-center mt-4">
+
+            <div class="col-auto">
+                <select required class="form-select" name="day" aria-label="Choose class">
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                </select>
+            </div>
+
+            <div class="col-auto">
+                <select required class="form-select" name="time" aria-label="Choose class">
+                    {% for itm in time %}
+                    <option value="{{ forloop.counter0 }}">({{ forloop.counter }}) {{ itm }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-auto">
+                <select required class="form-select" name="class_id" aria-label="Choose class">
+                    {% for itm in classes %}
+                        <option value="{{ itm.id }}">{{ itm.class_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-auto">
+                <select required class="form-select" name="teacher_id" aria-label="Choose class">
+                    {% for itm in teachers %}
+                        <option value="{{ itm.id }}">({{ itm.teachers_class.class_name }}) {{ itm.second_name_teacher }} {{ itm.first_name_teacher }} - ({{ itm.teachers_lesson.lesson_name }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-auto">
+                <button class="btn btn-primary" type="submit">Add</button>
+            </div>
+
+        </div>
+    </form>
+
+{% endblock %}

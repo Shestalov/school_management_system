@@ -1,0 +1,45 @@
+{% extends 'app/layout.html' %}
+
+{% block title %}Add mark{% endblock %}
+
+{% block content %}
+    <h2>Add mark</h2>
+    <form action="add_mark" method="POST">
+        {% csrf_token %}
+        <div class="row g-2 align-items-center mt-4">
+
+            <div class="col-auto">
+                <select required class="form-select" name="mark" aria-label="Choose class">
+                    {% for itm in marks %}
+                        <option value="{{ itm }}">{{ itm }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-auto">
+                <select required class="form-select" name="teacher" aria-label="Choose class">
+                    {% for itm in teachers %}
+                        <option value="{{ itm.id }}">({{ itm.teachers_class.class_name }}) {{ itm.second_name_teacher }} {{ itm.first_name_teacher }} ({{ itm.teachers_lesson.lesson_name }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-auto">
+                <select required class="form-select" name="pupil" aria-label="Choose class">
+                    {% for itm in pupils %}
+                        <option value="{{ itm.id }}">({{ itm.current_class.class_name }}) {{ itm.second_name_pupil }} {{ itm.first_name_pupil }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-auto">
+                <button class="btn btn-primary" type="submit">Add</button>
+            </div>
+
+        </div>
+    </form>
+
+    <div>
+    <b>**The class of the teacher and the class of the student must be the same</b>
+    </div>
+{% endblock %}

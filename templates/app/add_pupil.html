@@ -1,0 +1,35 @@
+{% extends 'app/layout.html' %}
+
+{% block title %}Add pupil{% endblock %}
+
+{% block content %}
+    <h2>Add pupil</h2>
+    <form action="add_pupil" method="post">
+        {% csrf_token %}
+        <div class="row g-2 align-items-center mt-4">
+
+            <div class="col-auto">
+                <input type="text" class="form-control" name="first_name_pupil" placeholder="First name" required
+                aria-label="first_name_pupil">
+            </div>
+
+            <div class="col-auto">
+                <input type="text" class="form-control" name="second_name_pupil" placeholder="Second name" required
+                aria-label="second_name_pupil">
+            </div>
+
+            <div class="col-auto">
+                <select required class="form-select" name="pupil_class" aria-label="Choose class">
+                    {% for itm in classes %}
+                        <option value="{{ itm.class_name }}">{{ itm.class_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-auto">
+                <button class="btn btn-primary" type="submit">Add</button>
+            </div>
+
+        </div>
+    </form>
+{% endblock %}

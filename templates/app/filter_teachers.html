@@ -1,0 +1,62 @@
+{% extends 'app/layout.html' %}
+
+{% block title %}Teachers{% endblock %}
+
+{% block content %}
+    <h2 class="text-center">Teachers</h2>
+    <form action="filter_teachers" method="POST">
+        {% csrf_token %}
+
+        <div class="row justify-content-center mt-3">
+
+            <div class="col-lg-2 col-sm-4">
+                <select required class="form-select" name="class_id" aria-label="Choose class">
+                    {#                        <option value="All teachers">All teachers</option>#}
+                    {% for itm in classes %}
+                        <option value="{{ itm.id }}">{{ itm.class_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-lg-2 col-sm-4">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+
+        </div>
+    </form>
+
+
+    {% if teachers is not None %}
+        <h4 class="text mt-5">{{ teachers.0.teachers_class.class_name }}</h4>
+
+        <div>
+
+            <table class="table table-striped">
+
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Second name</th>
+                    <th>First name</th>
+                    <th>Teachers lesson</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for itm in teachers %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ itm.first_name_teacher }}</td>
+                        <td>{{ itm.second_name_teacher }}</td>
+                        <td>{{ itm.teachers_lesson.lesson_name }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+
+    {% endif %}
+
+{% endblock %}

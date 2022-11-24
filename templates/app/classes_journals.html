@@ -1,0 +1,69 @@
+{% extends 'app/layout.html' %}
+
+{% block title %}Class Journal{% endblock %}
+
+{% block content %}
+    <h2 class="text-center">Class Journal</h2>
+    <form action="classes_journals" method="POST" class="w-auto">
+        {% csrf_token %}
+        <div class="row justify-content-center mt-3">
+
+            <div class="col-lg-2 col-sm-4">
+                <select required class="form-select" name="pupils_class" aria-label="Choose class">
+                    {% for itm in classes %}
+                        <option value="{{ itm.class_name }}">{{ itm.class_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-lg-2 col-sm-4">
+                <select required class="form-select" name="pupils_lesson" aria-label="Choose day">
+                    {% for itm in lessons %}
+                        <option value="{{ itm.lesson_name }}">{{ itm.lesson_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-lg-2 col-sm-4">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+
+        </div>
+    </form>
+
+    {% if class %}
+        <h4 class="text mt-5">{{ lesson.lesson_name }} ({{ class.class_name }})</h4>
+
+        <div>
+
+            <table class="table table-striped">
+
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Date</th>
+                    <th>Mark</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for itm in pupils %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ itm.pupil.second_name_pupil }}</td>
+                        <td>{{ itm.pupil.first_name_pupil }}</td>
+                        <td>{{ itm.date }}</td>
+                        <td>{{ itm.mark }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+
+    {% endif %}
+
+{% endblock %}

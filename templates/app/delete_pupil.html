@@ -1,0 +1,27 @@
+{% extends 'app/layout.html' %}
+
+{% block title %}Delete pupil{% endblock %}
+
+{% block content %}
+    <h2>Delete pupil</h2>
+    <form action="delete_pupil" method="post">
+        {% csrf_token %}
+
+        <div class="row g-2 align-items-center mt-4">
+
+            <div class="col-auto">
+                <select required class="form-select" name="delete_pupil" aria-label="Choose class">
+                    {% for itm in pupils %}
+                        <option value="{{ itm.id }}">{{ itm.second_name_pupil }} {{ itm.first_name_pupil }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-lg-2 col-sm-4">
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </div>
+
+        </div>
+
+    </form>
+{% endblock %}

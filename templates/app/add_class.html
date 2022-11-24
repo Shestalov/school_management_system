@@ -1,0 +1,28 @@
+{% extends 'app/layout.html' %}
+
+{% block title %}Add class{% endblock %}
+
+{% block content %}
+    <h2>Add class</h2>
+    <form action="add_class" method="post">
+        {% csrf_token %}
+        <div class="row g-2 align-items-center mt-4">
+            <div class="col-auto">
+                <input type="text" class="form-control" name="new_class_name" placeholder="Class" required
+                       aria-label="new_class_name">
+            </div>
+
+            <div class="col-auto">
+                <button class="btn btn-primary" type="submit">Add</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="mt-5">
+        <b>Existing classes:
+            {% for itm in classes %}
+                ({{ itm.class_name }})
+            {% endfor %}
+        </b>
+    </div>
+{% endblock %}

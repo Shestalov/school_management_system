@@ -1,0 +1,92 @@
+{% extends 'app/layout.html' %}
+
+{% block title %}Home page{% endblock %}
+
+{% block content %}
+    <h2 class="text-center">Timetable</h2>
+    <form action="timetable" method="POST">
+        {% csrf_token %}
+        <div class="row justify-content-center mt-3">
+
+            <div class="col-lg-2 col-sm-4">
+                <select required class="form-select" name="class_name" aria-label="Choose class">
+                    {% for itm in classes %}
+                        <option value="{{ itm.class_name }}">{{ itm.class_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-lg-2 col-sm-4">
+                <select required class="form-select" name="day" aria-label="Choose day">
+                    <option value="All weak">All week</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                </select>
+            </div>
+
+            <div class="col-lg-2 col-sm-4">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+
+        </div>
+    </form>
+
+    {% if result is not None %}
+        <div>
+            <h4 class="text mt-5">{{ day }} ({{ class_name }})</h4>
+            <table class="table table-striped">
+
+                <thead>
+                <tr>
+                    <th>#</th>
+                    {% if day == 'All weak' %}
+                        <th>Day</th>
+                    {% endif %}
+                    <th>Begin</th>
+                    <th>End</th>
+                    <th>Lesson</th>
+                    <th>Teacher</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for item in result %}
+                    {% if item.day == 'Monday' %}
+                        <tr class="table-active">
+                    {% endif %}
+                    {% if item.day == 'Tuesday' %}
+                        <tr class="table-success">
+                    {% endif %}
+                    {% if item.day == 'Wednesday' %}
+                        <tr class="table-primary">
+                    {% endif %}
+                    {% if item.day == 'Thursday' %}
+                        <tr class="table-warning">
+                    {% endif %}
+                    {% if item.day == 'Friday' %}
+                        <tr class="table-danger">
+                    {% endif %}
+
+                    <td>{{ forloop.counter }}</td>
+
+                    {% if day == 'All weak' %}
+                        <td>{{ item.day }}</td>
+                    {% endif %}
+
+                    <td>{{ item.time_begin }}</td>
+                    <td>{{ item.time_end }}</td>
+                    <td>{{ item.lesson.lesson_name }}</td>
+                    <td>{{ item.teacher.second_name_teacher }} {{ item.teacher.first_name_teacher }}</td>
+                    <td><a href="{% url 'app:delete_timetable' item.id %}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}

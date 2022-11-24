@@ -1,0 +1,35 @@
+{% extends 'app/layout.html' %}
+
+{% block title %}Delete class{% endblock %}
+
+{% block content %}
+    <h2>Delete class</h2>
+    <form action="delete_class" method="post">
+        {% csrf_token %}
+
+        <div class="row g-2 align-items-center mt-4">
+
+            <div class="col-auto">
+                <select required class="form-select" name="delete_class_name" aria-label="Choose class">
+                    {% for itm in classes %}
+                        <option value="{{ itm.class_name }}">{{ itm.class_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-lg-2 col-sm-4">
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </div>
+
+        </div>
+
+    </form>
+
+    <div class="mt-5">
+        <b>Existing classes:
+            {% for itm in classes %}
+                ({{ itm.class_name }})
+            {% endfor %}
+        </b>
+    </div>
+{% endblock %}

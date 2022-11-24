@@ -1,0 +1,33 @@
+{% extends 'app/layout.html' %}
+
+{% block title %}Home page{% endblock %}
+
+{% block content %}
+    <div>
+
+        <div>
+            <h5>Classes in school ({{ classes|length }})</h5>
+            <b>List classes:</b>
+            {% for itm in classes_related %}
+                (class "{{ itm.class_name }}" - has {{ itm.pupils_set.all|length }} pupils)
+            {% endfor %}
+        </div>
+
+        <div class="mt-5">
+            <h5>Lessons in school ({{ lessons|length }})</h5>
+            <b>List lessons:</b>
+            {% for itm in lessons %}
+                ({{ forloop.counter }} - {{ itm.lesson_name }})
+            {% endfor %}
+        </div>
+
+        <div class="mt-5">
+            <h5>Teachers in school ({{ teachers|length }})</h5>
+            <b>List teachers:</b>
+            {% for itm in teachers %}
+                ({{ itm.second_name_teacher }} {{ itm.first_name_teacher }})
+            {% endfor %}
+        </div>
+
+    </div>
+{% endblock %}
